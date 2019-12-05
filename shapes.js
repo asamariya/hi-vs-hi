@@ -12,6 +12,8 @@ const {
   Query
 } = Matter;
 
+Matter.use('matter-wrap');
+
 // Where is matter being deployed
 const sectionTag = document.querySelector('section.shapes');
 
@@ -28,7 +30,7 @@ const renderer = Render.create({
     width: w,
     background: '#000',
     wireframes: false,
-    pixelRation: window.devicePixelRatio
+    pixelRatio: window.devicePixelRatio
   }
 });
 
@@ -43,6 +45,12 @@ const createShape = (x, y) => {
         yScale: 0.5
       }
     }
+    // plugin: {
+    //   wrap: {
+    //     min: { x: 0, y: 0 },
+    //     max: { x: 1024, y: 1024 }
+    //   }
+    // }
   });
 };
 
@@ -127,7 +135,7 @@ window.addEventListener('deviceorientation', e => {
   engine.world.gravity.y = e.beta / 30;
 });
 
-window.addEventListener('resize', function() {
-  renderer.canvas.width = window.innerWidth;
-  renderer.canvas.height = window.innerHeight;
-});
+// window.addEventListener('resize', function() {
+//   renderer.canvas.width = window.innerWidth;
+//   renderer.canvas.height = window.innerHeight;
+// });
