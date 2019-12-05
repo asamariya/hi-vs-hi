@@ -2,7 +2,7 @@
 // First is an engine - computation and math behind this
 // Second is a renderer - this draws the engine
 
-const { Engine, Render, Bodies, World, MouseConstraint } = Matter;
+const { Engine, Render, Bodies, World, MouseConstraint, Composites } = Matter;
 
 // Where is matter being deployed
 const sectionTag = document.querySelector('section.shapes');
@@ -27,6 +27,7 @@ const renderer = Render.create({
 // Have the ability to create a brand new shape
 const createShape = (x, y) => {
   return Bodies.circle(x, y, 20 + 20 * Math.random(), {
+    frictionAir: 0.05,
     render: {
       fillStyle: 'red'
     }
@@ -61,13 +62,18 @@ const mouseControl = MouseConstraint.create(engine, {
   }
 });
 
+const initialShapes = Composites.stack(50, 50, 15, 5, 40, 40, (x, y) => {
+  return createShape(x, y);
+});
+
 World.add(engine.world, [
   bigBall,
   ground,
   ceiling,
   leftWall,
   rightWall,
-  mouseControl
+  mouseControl,
+  initialShapes
 ]);
 
 // When we click the page, add a new shape
