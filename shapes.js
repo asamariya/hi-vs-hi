@@ -2,7 +2,7 @@
 // First is an engine - computation and math behind this
 // Second is a renderer - this draws the engine
 
-const { Engine, Render, Bodies, World } = Matter;
+const { Engine, Render, Bodies, World, MouseConstraint } = Matter;
 
 // Where is matter being deployed
 const sectionTag = document.querySelector('section.shapes');
@@ -52,7 +52,23 @@ const ceiling = Bodies.rectangle(w / 2, -50, w + 100, 100, wallOptions);
 const leftWall = Bodies.rectangle(-50, h / 2, 100, h + 100, wallOptions);
 const rightWall = Bodies.rectangle(w + 50, h / 2, 100, h + 100, wallOptions);
 
-World.add(engine.world, [bigBall, ground, ceiling, leftWall, rightWall]);
+const mouseControl = MouseConstraint.create(engine, {
+  element: sectionTag,
+  constraint: {
+    render: {
+      visible: false
+    }
+  }
+});
+
+World.add(engine.world, [
+  bigBall,
+  ground,
+  ceiling,
+  leftWall,
+  rightWall,
+  mouseControl
+]);
 
 // When we click the page, add a new shape
 document.addEventListener('click', e => {
