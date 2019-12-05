@@ -46,7 +46,7 @@ const createShape = (x, y) => {
   });
 };
 
-const bigBall = Bodies.circle(w / 2, h / 2, 250, {
+const bigBall = Bodies.circle(w / 2, h / 2, Math.min(w / 4, h / 4), {
   isStatic: true,
   render: {
     fillStyle: 'white'
@@ -121,3 +121,13 @@ Render.run(renderer);
 // };
 
 // changeGravity();
+
+window.addEventListener('deviceorientation', e => {
+  engine.world.gravity.x = e.gamma / 30;
+  engine.world.gravity.y = e.beta / 30;
+});
+
+window.addEventListener('resize', function() {
+  renderer.canvas.width = window.innerWidth;
+  renderer.canvas.height = window.innerHeight;
+});
