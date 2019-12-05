@@ -26,10 +26,14 @@ const renderer = Render.create({
 
 // Have the ability to create a brand new shape
 const createShape = (x, y) => {
-  return Bodies.circle(x, y, 20 + 20 * Math.random(), {
+  return Bodies.rectangle(x, y, 38, 50, {
     frictionAir: 0.05,
     render: {
-      fillStyle: 'red'
+      sprite: {
+        texture: './assets/outline-2x.png',
+        xScale: 0.5,
+        yScale: 0.5
+      }
     }
   });
 };
